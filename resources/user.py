@@ -17,6 +17,7 @@ class UserRegister(Resource):
         data = UserRegister.parser.parse_args()
         if UserModel.find_by_username(data['username']) is None:
             user = UserModel(**data)
+            user.save_to_db()
             return {"message": "User created successfully"}, 201
         
         return {"message": "User already exists"}, 400
